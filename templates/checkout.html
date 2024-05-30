@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout</title>
+    <title>Shopping Cart</title>
+    <!-- Your CSS styles here -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,8 +28,32 @@
     </style>
 </head>
 <body>
-    <h1>Thank you for shopping with us!</h1>
-    <p>Your order has been received and will be processed shortly.</p>
-    <a href="{{ url_for('index') }}">Back to Home</a>
+    <div class="cart-container">
+        <!-- Your cart header and items here -->
+
+        <div class="cart-footer">
+            <button id="checkout-btn" class="checkout-btn">Checkout</button>
+        </div>
+    </div>
+
+    <script>
+        const cartItems = document.querySelectorAll('.cart-item');
+        const checkoutBtn = document.getElementById('checkout-btn');
+
+        function updateCheckoutButtonText() {
+            if (cartItems.length === 0) {
+                checkoutBtn.textContent = "There's nothing in the cart";
+                checkoutBtn.disabled = true;
+            } else {
+                checkoutBtn.textContent = "Checkout";
+                checkoutBtn.disabled = false;
+            }
+        }
+
+        updateCheckoutButtonText();
+
+        // Call updateCheckoutButtonText() whenever the cart items change
+        // (e.g., after removing an item or updating the quantity)
+    </script>
 </body>
 </html>
