@@ -241,6 +241,14 @@ a:hover {
             width: 90%;
           }
         }
+
+        @media (min-width: 768px) and (max-width: 1000px){
+            .product-image {
+                grid-template-columns: repeat(1, 1fr);
+                grid-template-rows: repeat(1, 1fr);
+            }
+           
+}
         .container {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -283,6 +291,8 @@ a:hover {
             font-size: 14px;
             margin: 5px 0;
         }
+
+
         .price {
             color: #28a745;
             font-weight: bold;

@@ -174,9 +174,14 @@ def cart():
 
 @app.route('/checkout', methods=['GET'])
 def checkout():
-   return render_template('checkout.html')
+    cart = session.get('cart', [])
+    if not cart:
+        return redirect(url_for('empty_cart'))
+    return render_template('checkout.html')
 
-
+@app.route('/empty_cart')
+def empty_cart():
+    return render_template('empty_cart.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
