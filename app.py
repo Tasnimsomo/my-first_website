@@ -172,7 +172,9 @@ def cart():
     shipping = 15
     return render_template('cart.html', cart=cart, total=total, tax=tax, shipping=shipping)
 
-
+@app.route('/checkout', methods=['GET'])
+def checkout():
+   return render_template('checkout.html')
 
 
 

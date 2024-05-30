@@ -5,130 +5,130 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Cart</title>
     <style>
-        /* General Styles */
+      /* General Styles */
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 .cart-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 /* Header Styles */
 .cart-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 .cart-header h2 {
-  margin: 0;
+    margin: 0;
 }
 
 .cart-header form {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .cart-header input {
-  padding: 5px;
-  margin-right: 10px;
+    padding: 5px;
+    margin-right: 10px;
 }
 
 /* Cart Item Styles */
 .cart-items {
-  border: 1px solid #ccc;
-  padding: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
 }
 
 .cart-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
 }
 
 .cart-item:last-child {
-  border-bottom: none;
+    border-bottom: none;
 }
 
 .item-details {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .item-name {
-  margin: 0;
-  margin-right: 20px;
+    margin: 0;
+    margin-right: 20px;
 }
 
 .item-quantity {
-  display: flex;
-  align-items: center;
-  margin-right: 20px;
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
 }
 
 .item-quantity button {
-  padding: 5px 10px;
+    padding: 5px 10px;
 }
 
 .item-quantity input {
-  width: 40px;
-  text-align: center;
-  margin: 0 5px;
+    width: 40px;
+    text-align: center;
+    margin: 0 5px;
 }
 
 .item-price {
-  margin: 0;
-  margin-right: 20px;
+    margin: 0;
+    margin-right: 20px;
 }
 
 .remove-btn {
-  background-color: #ff4d4d;
-  color: #fff;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
+    background-color: #ff4d4d;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
 }
 
 /* Cart Total Styles */
 .cart-total {
-  margin-top: 20px;
-  border: 1px solid #ccc;
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .total-details p {
-  margin: 5px 0;
+    margin: 5px 0;
 }
 
 .total-amount {
-  text-align: right;
+    text-align: right;
 }
 
 .total-amount h2 {
-  margin: 0;
+    margin: 0;
 }
 
 /* Checkout Button Styles */
 .checkout-btn {
-  display: block;
-  margin: 20px auto 0;
-  background-color: #4caf50;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 16px;
+    display: block;
+    margin: 20px auto 0;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
 }
     </style>
 </head>
@@ -170,7 +170,7 @@ body {
             </div>
             {% endif %}
         </div>
-        <button class="checkout-btn">Checkout</button>
+        <button class="checkout-btn" onclick="window.location.href='{{ url_for('checkout') }}'">Checkout</button>
     </div>
 
     <script>
@@ -228,7 +228,6 @@ body {
                 console.error('Error:', error);
             });
         }
-
         function removeItem(itemIndex) {
     // Send an AJAX request to remove the item from the cart on the server
     const formData = new FormData();
@@ -252,18 +251,22 @@ body {
             const removedItemQuantity = parseInt(cartItems[itemIndex].querySelector('input[type=number]').value);
             const subtotalElement = document.getElementById('subtotal');
             const taxElement = document.getElementById('tax');
+            const shippingElement = document.getElementById('shipping');
             const totalElement = document.getElementById('total');
 
             const currentSubtotal = parseFloat(subtotalElement.textContent.replace('Ksh ', ''));
             const currentTax = parseFloat(taxElement.textContent.replace('Ksh ', ''));
+            const currentShipping = parseFloat(shippingElement.textContent.replace('Ksh ', ''));
             const currentTotal = parseFloat(totalElement.textContent.replace('Ksh ', ''));
 
             const newSubtotal = currentSubtotal - (removedItemPrice * removedItemQuantity);
             const newTax = newSubtotal * 0.1; // Assuming a 10% tax rate
-            const newTotal = newSubtotal + newTax + 15; // Assuming a flat shipping rate of $15
+            const newShipping = cartItems.length > 1 ? currentShipping : 0; // Set shipping to 0 if cart is empty
+            const newTotal = newSubtotal + newTax + newShipping;
 
             subtotalElement.textContent = `Ksh ${newSubtotal.toFixed(2)}`;
             taxElement.textContent = `Ksh ${newTax.toFixed(2)}`;
+            shippingElement.textContent = `Ksh ${newShipping.toFixed(2)}`;
             totalElement.textContent = `Ksh ${newTotal.toFixed(2)}`;
         } else {
             console.error('Failed to remove item');
@@ -273,6 +276,7 @@ body {
         console.error('Error:', error);
     });
 }
+       
    </script>
 </body>
 </html>
