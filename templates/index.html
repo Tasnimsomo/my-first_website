@@ -183,6 +183,9 @@ a:hover {
           box-shadow: 0 8px 16px rgba(0,0,0,0.2);
         }
         .product-image img {
+          flex: 1 1 200px; /* Adjust the width of each product card */
+           border: 1px solid #ddd;
+            padding: 10px;
           width: 100%;
           height: 200px; /* Fixed height for the images */
           object-fit: cover; /* Maintain aspect ratio */
@@ -310,7 +313,7 @@ a:hover {
             background-size: cover; /* Cover the entire background */
             background-position: center; /* Center the background image */
             padding: 100px 0; /* Add padding to create space between navbar and content */
-  
+
         }
       </style>
        <style>
@@ -434,7 +437,7 @@ a:hover {
             gap: 20px;
             padding: 0 20px;
             margin-bottom: 40px;
-        } 
+        }
         @media (max-width: 768px) {
         .container-fluid {
         grid-template-columns: repeat(1, 1fr); /* Change to 2 columns on smaller screens */
@@ -471,6 +474,7 @@ a:hover {
                 {% if current_user.is_authenticated %}
                     <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
                     <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+                    <li class="nav-item"><a class="nav-link" id="my-cart" href="/cart">My Cart</a></li>
                 {% endif %}
             </ul>
         </div>
@@ -487,7 +491,7 @@ a:hover {
           </div>
            <div class="col-md-6 d-none d-md-block image-column">
               <img src="https://img.freepik.com/free-photo/3d-rendering-pink-floral-arrangement_23-2150850901.jpg?size=626&ext=jpg&ga=GA1.1.1224184972.1714089600&semt=ais" alt="Product Image" class="img-fluid">
-          </div> 
+          </div>
       </div>
   </div>
 </div>
@@ -500,121 +504,159 @@ a:hover {
   <div class="container-fluid">
       <!-- Product 1 -->
       <div class="product-card">
-          <div class="product-image">
-              <img src="https://elements.togetherjournal.com/uploads/2018/10/92dafa8f-1i2a1633.jpg" alt="Eau Fraiche">
-          </div>
-          <div class="product-info">
-              <div class="stars">★★★★★</div>
-              <h4><b>Eau Fraiche</b></h4>
-              <p>Long-lasting matte fragrance in various shades.</p>
-              <p class="price">$20</p>
-              <button class="add-to-cart">Add to Cart</button>
-          </div>
-      </div>
+        <div class="product-image">
+            <img src="https://elements.togetherjournal.com/uploads/2018/10/92dafa8f-1i2a1633.jpg" alt="Eau Fraiche">
+        </div>
+        <div class="product-info">
+            <div class="stars">★★★★★</div>
+            <h4><b>Eau Fraiche</b></h4>
+            <p>Long-lasting matte fragrance in various shades.</p>
+            <p class="price">$20</p>
+            <form action="{{ url_for('cart') }}" method="post">
+                <input type="hidden" name="product_name" value="Eau Fraiche">
+                <input type="hidden" name="product_price" value="20">
+                <button class="add-to-cart" type="submit">Add to Cart</button>
+            </form>
+        </div>
+    </div>
+    
       <!-- Product 2 -->
       <div class="product-card">
-          <div class="product-image">
-              <img src="https://rukminim2.flixcart.com/image/850/1000/xif0q/perfume/x/g/v/50-fruit-fragnance-perfume-perfume-sacroscent-men-women-original-imagqrcgnu3tvzns.jpeg?q=90&crop=false" alt="Eau de Toilette">
-          </div>
-          <div class="product-info">
-              <div class="stars">★★★★★</div>
-              <h4><b>Eau de Toilette</b></h4>
-              <p>Enchanting blend of jasmine, rose, and vanilla.</p>
-              <p class="price">$30</p>
-              <button class="add-to-cart">Add to Cart</button>
-          </div>
-      </div>
+        <div class="product-image">
+            <img src="https://rukminim2.flixcart.com/image/850/1000/xif0q/perfume/x/g/v/50-fruit-fragnance-perfume-perfume-sacroscent-men-women-original-imagqrcgnu3tvzns.jpeg?q=90&crop=false" alt="Eau de Toilette">
+        </div>
+        <div class="product-info">
+            <div class="stars">★★★★★</div>
+            <h4><b>Eau de Toilette</b></h4>
+            <p>Enchanting blend of jasmine, rose, and vanilla.</p>
+            <p class="price">$30</p>
+            <form action="{{ url_for('cart') }}" method="post">
+                <input type="hidden" name="product_name" value="Eau de Toilette">
+                <input type="hidden" name="product_price" value="30">
+                <button class="add-to-cart" type="submit">Add to Cart</button>
+            </form>
+        </div>
+    </div>
+    
       <!-- Product 3 -->
       <div class="product-card">
-          <div class="product-image">
-              <img src="https://m.media-amazon.com/images/I/71hezfkq5lL.jpg" alt="Eau de Cologne">
-          </div>
-          <div class="product-info">
-              <div class="stars">★★★★★</div>
-              <h4><b>Eau de Cologne</b></h4>
-              <p>Deep conditioning for damaged hair.</p>
-              <p class="price">$34</p>
-              <button class="add-to-cart">Add to Cart</button>
-          </div>
-      </div>
+        <div class="product-image">
+            <img src="https://m.media-amazon.com/images/I/71hezfkq5lL.jpg" alt="Eau de Cologne">
+        </div>
+        <div class="product-info">
+            <div class="stars">★★★★★</div>
+            <h4><b>Eau de Cologne</b></h4>
+            <p>An invigorating fragrance for men and women.</p>
+            <p class="price">$34</p>
+            <form action="{{ url_for('cart') }}" method="post">
+                <input type="hidden" name="product_name" value="Eau de Cologne">
+                <input type="hidden" name="product_price" value="34">
+                <button class="add-to-cart" type="submit">Add to Cart</button>
+            </form>
+        </div>
+    </div>
+    
       <!-- Product 4 -->
-       <div class="product-card">
-          <div class="product-image">
-              <img src="https://c.ndtvimg.com/2022-10/41q03j48_perfumes650_625x300_17_October_22.jpg" alt="Woody">
-          </div>
-          <div class="product-info">
-              <div class="stars">★★★★★</div>
-              <h4><b>Woody</b></h4>
-              <p>Refreshing and moisturizing.</p>
-              <p class="price">$20</p>
-              <button class="add-to-cart">Add to Cart</button>
-          </div>
-      </div> 
+      <div class="product-card">
+        <div class="product-image">
+            <img src="https://c.ndtvimg.com/2022-10/41q03j48_perfumes650_625x300_17_October_22.jpg" alt="Woody">
+        </div>
+        <div class="product-info">
+            <div class="stars">★★★★★</div>
+            <h4><b>Woody</b></h4>
+            <p>Immerse yourself in the refreshing and invigorating scent of Woody.</p>
+            <p class="price">$20</p>
+            <form action="{{ url_for('cart') }}" method="post">
+                <input type="hidden" name="product_name" value="Woody">
+                <input type="hidden" name="product_price" value="20">
+                <button class="add-to-cart" type="submit">Add to Cart</button>
+            </form>
+        </div>
+    </div>
   </div>
 
-  <!--  -->
+  <div>
+    <h2 id="hair" class="me">Hair</h2>
+</div>
+<div class="container-fluid">
+    <!-- Product 1 -->
+    <div class="product-card">
+        <div class="product-image">
+            <img src="https://georgiemane.com/cdn/shop/files/22-HairMaskPDP-002-Georgiemane-1102_1x1_d45b0c08-46e5-454f-bde3-4697e43fb27b.jpg?v=1699319509" alt="Hair mask">
+        </div>
+        <div class="product-info">
+            <div class="stars">★★★★★</div>
+            <h4><b>Hair mask</b></h4>
+            <p>Revitalize and nourish your hair with our luxurious Hair Mask.</p>
+            <p class="price">$20</p>
+            <form action="{{ url_for('cart') }}" method="post">
+                <input type="hidden" name="product_name" value="Hair mask">
+                <input type="hidden" name="product_price" value="20">
+                <button class="add-to-cart" type="submit">Add to Cart</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Product 2 -->
+    <div class="product-card">
+        <div class="product-image">
+            <img src="https://i5.walmartimages.com/seo/Pantene-Pro-V-Daily-Moisture-Renewal-Shampoo-27-7-oz_cf81ebfb-9d81-48f2-9297-eebcdeb5bdf0.bf7b0bfa8122a90c5b35bcb98688b57b.jpeg" alt="Pantene Shampoo">
+        </div>
+        <div class="product-info">
+            <div class="stars">★★★★★</div>
+            <h4><b>Pantene Shampoo</b></h4>
+            <p>Enchanting blend of jasmine, rose, and vanilla.</p>
+            <p class="price">$30</p>
+            <form action="{{ url_for('cart') }}" method="post">
+                <input type="hidden" name="product_name" value="Pantene Shampoo">
+                <input type="hidden" name="product_price" value="30">
+                <button class="add-to-cart" type="submit">Add to Cart</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Product 3 -->
+    <div class="product-card">
+        <div class="product-image">
+            <img src="https://m.media-amazon.com/images/I/41fzL9D5suL.jpg" alt="Dove Conditioner">
+        </div>
+        <div class="product-info">
+            <div class="stars">★★★★★</div>
+            <h4><b>Dove Conditioner</b></h4>
+            <p>Deep conditioning for damaged hair.</p>
+            <p class="price">$34</p>
+            <form action="{{ url_for('cart') }}" method="post">
+                <input type="hidden" name="product_name" value="Dove Conditioner">
+                <input type="hidden" name="product_price" value="34">
+                <button class="add-to-cart" type="submit">Add to Cart</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Product 4 -->
+    <div class="product-card">
+        <div class="product-image">
+            <img src="https://www.audora.in/cdn/shop/files/02_22101c69-2a7f-459a-988b-77ba856c686c.jpg?v=1709292565" alt="Hair Oil">
+        </div>
+        <div class="product-info">
+            <div class="stars">★★★★★</div>
+            <h4><b>Hair Oil</b></h4>
+            <p>Refreshing and moisturizing.</p>
+            <p class="price">$20</p>
+            <form action="{{ url_for('cart') }}" method="post">
+                <input type="hidden" name="product_name" value="Hair Oil">
+                <input type="hidden" name="product_price" value="20">
+                <button class="add-to-cart" type="submit">Add to Cart</button>
+            </form>
+        </div>
+    </div>
+</div>
 
-    
-    <div>
-        <h2 id="hair" class="me">Hair</h2>
-    </div>
-    <div class="container-fluid">
-      <!-- Product 1 -->
-      <div class="product-card">
-        <div class="product-image">
-          <img src="https://georgiemane.com/cdn/shop/files/22-HairMaskPDP-002-Georgiemane-1102_1x1_d45b0c08-46e5-454f-bde3-4697e43fb27b.jpg?v=1699319509" alt="Hair mask">
-        </div>
-        <div class="product-info">
-          <div class="stars">★★★★★</div>
-          <h4><b>Hair mask</b></h4>
-          <p>Long-lasting matte fragrance in various shades.</p>
-          <p class="price">$20</p>
-          <button class="add-to-cart">Add to Cart</button>
-        </div>
-      </div>
-      <!-- Product 2 -->
-      <div class="product-card">
-        <div class="product-image">
-          <img src="https://i5.walmartimages.com/seo/Pantene-Pro-V-Daily-Moisture-Renewal-Shampoo-27-7-oz_cf81ebfb-9d81-48f2-9297-eebcdeb5bdf0.bf7b0bfa8122a90c5b35bcb98688b57b.jpeg" alt="Pantene Shampoo">
-        </div>
-        <div class="product-info">
-          <div class="stars">★★★★★</div>
-          <h4><b>Pantene Shampoo</b></h4>
-          <p>Enchanting blend of jasmine, rose, and vanilla.</p>
-          <p class="price">$30</p>
-          <button class="add-to-cart">Add to Cart</button>
-        </div>
-      </div>
-      <!-- Product 3 -->
-      <div class="product-card">
-        <div class="product-image">
-          <img src="https://m.media-amazon.com/images/I/41fzL9D5suL.jpg" alt="Dove Conditioner">
-        </div>
-        <div class="product-info">
-          <div class="stars">★★★★★</div>
-          <h4><b>Dove Conditioner</b></h4>
-          <p>Deep conditioning for damaged hair.</p>
-          <p class="price">$34</p>
-          <button class="add-to-cart">Add to Cart</button>
-        </div>
-      </div>
-      <!-- Product 4 -->
-      <div class="product-card">
-        <div class="product-image">
-          <img src="https://www.audora.in/cdn/shop/files/02_22101c69-2a7f-459a-988b-77ba856c686c.jpg?v=1709292565" alt="Hair Oil">
-        </div>
-        <div class="product-info">
-          <div class="stars">★★★★★</div>
-          <h4><b>Hair Oil</b></h4>
-          <p>Refreshing and moisturizing.</p>
-          <p class="price">$20</p>
-          <button class="add-to-cart">Add to Cart</button>
-        </div>
-      </div>
-    </div>
-    
-    
-    
+
+
+
+
+
     <!-- section3 -->
     <div>
         <h2 id="skincare" class="me">Skin Care</h2>
@@ -623,58 +665,78 @@ a:hover {
       <!-- Product 1 -->
       <div class="product-card">
         <div class="product-image">
-          <img src="https://saeedghani.pk/cdn/shop/files/Moisturizing-Cream_906dcf83-9670-4b05-b2b8-b0c6b0bf4eff.jpg?v=1707490657" alt="Eau Fraiche">
+            <img src="https://saeedghani.pk/cdn/shop/files/Moisturizing-Cream_906dcf83-9670-4b05-b2b8-b0c6b0bf4eff.jpg?v=1707490657" alt="Moisturizing Cream">
         </div>
         <div class="product-info">
-          <div class="stars">★★★★★</div>
-          <h4><b>moisturizing cream</b></h4>
-          <p>Long-lasting matte fragrance in various shades.</p>
-          <p class="price">$20</p>
-          <button class="add-to-cart">Add to Cart</button>
+            <div class="stars">★★★★★</div>
+            <h4><b>Moisturizing Cream</b></h4>
+            <p>Experience ultimate hydration with our Moisturizing Cream.</p>
+            <p class="price">$20</p>
+            <form action="{{ url_for('cart') }}" method="post">
+                <input type="hidden" name="product_name" value="Moisturizing Cream">
+                <input type="hidden" name="product_price" value="20">
+                <button class="add-to-cart" type="submit">Add to Cart</button>
+            </form>
         </div>
-      </div>
+    </div>
+    
       <!-- Product 2 -->
       <div class="product-card">
         <div class="product-image">
-          <img src="https://metafields-manager-by-hulkapps.s3-accelerate.amazonaws.com/uploads/hydropeptidestore.myshopify.com/1705951543-112123_CleansingGel_Results__1_.png" alt="Eau de Toilette">
+            <img src="https://metafields-manager-by-hulkapps.s3-accelerate.amazonaws.com/uploads/hydropeptidestore.myshopify.com/1705951543-112123_CleansingGel_Results__1_.png" alt="Cleansing Gel">
         </div>
         <div class="product-info">
-          <div class="stars">★★★★★</div>
-          <h4><b>Cleansing Gel</b></h4>
-          <p>Enchanting blend of jasmine, rose, and vanilla.</p>
-          <p class="price">$30</p>
-          <button class="add-to-cart">Add to Cart</button>
+            <div class="stars">★★★★★</div>
+            <h4><b>Cleansing Gel</b></h4>
+            <p>Enchanting blend of jasmine, rose, and vanilla.</p>
+            <p class="price">$30</p>
+            <form action="{{ url_for('cart') }}" method="post">
+                <input type="hidden" name="product_name" value="Cleansing Gel">
+                <input type="hidden" name="product_price" value="30">
+                <button class="add-to-cart" type="submit">Add to Cart</button>
+            </form>
         </div>
-      </div>
+    </div>
+    
       <!-- Product 3 -->
       <div class="product-card">
         <div class="product-image">
-          <img src="https://ogorganix.com.pk/wp-content/uploads/2022/08/IMG-4548-scaled.jpg" alt="Eau de Cologne">
+            <img src="https://ogorganix.com.pk/wp-content/uploads/2022/08/IMG-4548-scaled.jpg" alt="Face Serum">
         </div>
         <div class="product-info">
-          <div class="stars">★★★★★</div>
-          <h4><b>Face serum</b></h4>
-          <p>Deep conditioning for damaged hair.</p>
-          <p class="price">$34</p>
-          <button class="add-to-cart">Add to Cart</button>
+            <div class="stars">★★★★★</div>
+            <h4><b>Face Serum</b></h4>
+            <p>Rejuvenate and nourish your skin with our Face Serum.</p>
+            <p class="price">$34</p>
+            <form action="{{ url_for('cart') }}" method="post">
+                <input type="hidden" name="product_name" value="Face Serum">
+                <input type="hidden" name="product_price" value="34">
+                <button class="add-to-cart" type="submit">Add to Cart</button>
+            </form>
         </div>
-      </div>
+    </div>
+    
       <!-- Product 4 -->
       <div class="product-card">
         <div class="product-image">
-          <img src="https://hermosabeautystore.com/cdn/shop/products/hydrating_mineral_sunscreen_spf30_face_sheer_tint_1_1521x.png?v=1632823884" alt="Woody">
+            <img src="https://hermosabeautystore.com/cdn/shop/products/hydrating_mineral_sunscreen_spf30_face_sheer_tint_1_1521x.png?v=1632823884" alt="Sunscreen">
         </div>
         <div class="product-info">
-          <div class="stars">★★★★★</div>
-          <h4><b>SunScreen</b></h4>
-          <p>Refreshing and moisturizing.</p>
-          <p class="price">$20</p>
-          <button class="add-to-cart">Add to Cart</button>
+            <div class="stars">★★★★★</div>
+            <h4><b>Sunscreen</b></h4>
+            <p>Protect and nourish your skin with our Sunscreen.</p>
+            <p class="price">$20</p>
+            <form action="{{ url_for('cart') }}" method="post">
+                <input type="hidden" name="product_name" value="Sunscreen">
+                <input type="hidden" name="product_price" value="20">
+                <button class="add-to-cart" type="submit">Add to Cart</button>
+            </form>
         </div>
-      </div>
     </div>
     
-    
+    </div>
+   
+
     <!-- section3 -->
     <div>
         <h2 id="makeup" class="me">MakeUp</h2>
@@ -683,174 +745,274 @@ a:hover {
       <!-- Product 1 -->
       <div class="product-card">
         <div class="product-image">
-          <img src="https://media6.ppl-media.com//tr:h-235,w-235,c-at_max,dpr-2/static/img/product/298025/m-a-c-retro-matte-lipstick-ruby-woo-3-g_6_display_1597648237_99f1a66e.jpg" alt="Eau Fraiche">
+            <img src="https://media6.ppl-media.com//tr:h-235,w-235,c-at_max,dpr-2/static/img/product/298025/m-a-c-retro-matte-lipstick-ruby-woo-3-g_6_display_1597648237_99f1a66e.jpg" alt="Matte Lipstick">
         </div>
         <div class="product-info">
-          <div class="stars">★★★★★</div>
-          <h4><b>Matte Lipstick</b></h4>
-          <p>Long-lasting matte fragrance in various shades.</p>
-          <p class="price">$20</p>
-          <button class="add-to-cart">Add to Cart</button>
+            <div class="stars">★★★★★</div>
+            <h4><b>Matte Lipstick</b></h4>
+            <p>Long-lasting matte fragrance in various shades.</p>
+            <p class="price">$20</p>
+            <form action="{{ url_for('cart') }}" method="post">
+                <input type="hidden" name="product_name" value="Matte Lipstick">
+                <input type="hidden" name="product_price" value="20">
+                <button class="add-to-cart" type="submit">Add to Cart</button>
+            </form>
         </div>
-      </div>
+    </div>
+    
       <!-- Product 2 -->
       <div class="product-card">
         <div class="product-image">
-          <img src="https://www.elfcosmetics.com/dw/image/v2/BBXC_PRD/on/demandware.static/-/Sites-elf-master/default/dw65ac6350/2020/82158_OpenA_R.jpg?sfrm=png&sw=700&q=90" alt="Eau de Toilette">
+            <img src="https://www.elfcosmetics.com/dw/image/v2/BBXC_PRD/on/demandware.static/-/Sites-elf-master/default/dw65ac6350/2020/82158_OpenA_R.jpg?sfrm=png&sw=700&q=90" alt="Liquid Lipstick">
         </div>
         <div class="product-info">
-          <div class="stars">★★★★★</div>
-          <h4><b>Liquid lipstick</b></h4>
-          <p>Enchanting blend of jasmine, rose, and vanilla.</p>
-          <p class="price">$30</p>
-          <button class="add-to-cart">Add to Cart</button>
+            <div class="stars">★★★★★</div>
+            <h4><b>Liquid Lipstick</b></h4>
+            <p>Enchanting blend of jasmine, rose, and vanilla.</p>
+            <p class="price">$30</p>
+            <form action="{{ url_for('cart') }}" method="post">
+                <input type="hidden" name="product_name" value="Liquid Lipstick">
+                <input type="hidden" name="product_price" value="30">
+                <button class="add-to-cart" type="submit">Add to Cart</button>
+            </form>
         </div>
-      </div>
+    </div>
+    
       <!-- Product 3 -->
       <div class="product-card">
         <div class="product-image">
-          <img src="https://www.beautyclick.co.ke/wp-content/uploads/2024/01/ColorRicheClassicSatinLipstick-258BerryBlush.jpg" alt="Eau de Cologne">
+            <img src="https://www.beautyclick.co.ke/wp-content/uploads/2024/01/ColorRicheClassicSatinLipstick-258BerryBlush.jpg" alt="Satin Lipstick">
         </div>
         <div class="product-info">
-          <div class="stars">★★★★★</div>
-          <h4><b>Satin Lipstick</b></h4>
-          <p>Deep conditioning for damaged hair.</p>
-          <p class="price">$34</p>
-          <button class="add-to-cart">Add to Cart</button>
+            <div class="stars">★★★★★</div>
+            <h4><b>Satin Lipstick</b></h4>
+            <p>Add a touch of elegance to your makeup look with our Satin Lipstick.</p>
+            <p class="price">$34</p>
+            <form action="{{ url_for('cart') }}" method="post">
+                <input type="hidden" name="product_name" value="Satin Lipstick">
+                <input type="hidden" name="product_price" value="34">
+                <button class="add-to-cart" type="submit">Add to Cart</button>
+            </form>
         </div>
-      </div>
+    </div>
+    
       <!-- Product 4 -->
       <div class="product-card">
         <div class="product-image">
-          <img src="https://www.elfcosmetics.com/dw/image/v2/BBXC_PRD/on/demandware.static/-/Sites-elf-master/default/dw65ac6350/2020/82158_OpenA_R.jpg?sfrm=png&sw=700&q=90" alt="Woody">
+            <img src="https://www.elfcosmetics.com/dw/image/v2/BBXC_PRD/on/demandware.static/-/Sites-elf-master/default/dw65ac6350/2020/82158_OpenA_R.jpg?sfrm=png&sw=700&q=90" alt="Sheer Lipstick">
         </div>
         <div class="product-info">
-          <div class="stars">★★★★★</div>
-          <h4><b>Sheer Lipstick</b></h4>
-          <p>Refreshing and moisturizing.</p>
-          <p class="price">$20</p>
-          <button class="add-to-cart">Add to Cart</button>
+            <div class="stars">★★★★★</div>
+            <h4><b>Sheer Lipstick</b></h4>
+            <p>Enhance your natural beauty with our Sheer Lipstick.</p>
+            <p class="price">$20</p>
+            <form action="{{ url_for('cart') }}" method="post">
+                <input type="hidden" name="product_name" value="Sheer Lipstick">
+                <input type="hidden" name="product_price" value="20">
+                <button class="add-to-cart" type="submit">Add to Cart</button>
+            </form>
         </div>
-      </div>
     </div>
-    
-    
-    
-    
+    </div>
+
+
+
+
     <div class="container-fluid">
         <!-- Product 1 -->
         <div class="product-card">
           <div class="product-image">
-            <img src="https://janeiredale.ie/cdn/shop/products/11309_beyond_matte_liquid_foundation_m9_ALT_2000x_bc07b702-fdba-4d4a-9ce0-09a9ca7f4e0d_1200x.jpg?v=1655904994" alt="Eau Fraiche">
+              <img src="https://janeiredale.ie/cdn/shop/products/11309_beyond_matte_liquid_foundation_m9_ALT_2000x_bc07b702-fdba-4d4a-9ce0-09a9ca7f4e0d_1200x.jpg?v=1655904994" alt="Liquid Foundation">
           </div>
           <div class="product-info">
-            <div class="stars">★★★★★</div>
-            <h4><b>Liquid Foundation</b></h4>
-            <p>Long-lasting matte fragrance in various shades.</p>
-            <p class="price">$20</p>
-            <button class="add-to-cart">Add to Cart</button>
+              <div class="stars">★★★★★</div>
+              <h4><b>Liquid Foundation</b></h4>
+              <p>Experience a flawless and long-lasting matte finish with our Liquid Foundation</p>
+              <p class="price">$20</p>
+              <form action="{{ url_for('cart') }}" method="post">
+                  <input type="hidden" name="product_name" value="Liquid Foundation">
+                  <input type="hidden" name="product_price" value="20">
+                  <button class="add-to-cart" type="submit">Add to Cart</button>
+              </form>
           </div>
-        </div>
+      </div>
+      
         <!-- Product 2 -->
         <div class="product-card">
           <div class="product-image">
-            <img src="https://ke.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/61/326326/1.jpg?9192" alt="Eau de Toilette">
+              <img src="https://ke.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/61/326326/1.jpg?9192" alt="Powder Foundation">
           </div>
           <div class="product-info">
-            <div class="stars">★★★★★</div>
-            <h4><b>Powder Foundation</b></h4>
-            <p>Enchanting blend of jasmine, rose, and vanilla.</p>
-            <p class="price">$30</p>
-            <button class="add-to-cart">Add to Cart</button>
+              <div class="stars">★★★★★</div>
+              <h4><b>Powder Foundation</b></h4>
+              <p>Create a flawless complexion with our Powder Foundation.</p>
+              <p class="price">$30</p>
+              <form action="{{ url_for('cart') }}" method="post">
+                  <input type="hidden" name="product_name" value="Powder Foundation">
+                  <input type="hidden" name="product_price" value="30">
+                  <button class="add-to-cart" type="submit">Add to Cart</button>
+              </form>
           </div>
-        </div>
+      </div>
+      
         <!-- Product 3 -->
         <div class="product-card">
           <div class="product-image">
-            <img src="https://www.lenphor.com/cdn/shop/files/1_4b081bc7-b2ff-4fa7-938b-da9c6c04e2c7.png?v=1701933908" alt="Eau de Cologne">
+              <img src="https://www.lenphor.com/cdn/shop/files/1_4b081bc7-b2ff-4fa7-938b-da9c6c04e2c7.png?v=1701933908" alt="Stick Foundation">
           </div>
           <div class="product-info">
-            <div class="stars">★★★★★</div>
-            <h4><b>Stick Foundation</b></h4>
-            <p>Deep conditioning for damaged hair.</p>
-            <p class="price">$34</p>
-            <button class="add-to-cart">Add to Cart</button>
+              <div class="stars">★★★★★</div>
+              <h4><b>Stick Foundation</b></h4>
+              <p>Achieve flawless coverage and a natural-looking complexion with our Stick Foundation.</p>
+              <p class="price">$34</p>
+              <form action="{{ url_for('cart') }}" method="post">
+                  <input type="hidden" name="product_name" value="Stick Foundation">
+                  <input type="hidden" name="product_price" value="34">
+                  <button class="add-to-cart" type="submit">Add to Cart</button>
+              </form>
           </div>
-        </div>
+      </div>
+      
         <!-- Product 4 -->
         <div class="product-card">
           <div class="product-image">
-            <img src="https://m.media-amazon.com/images/I/41S6S93RfyL.jpg" alt="Woody">
+              <img src="https://m.media-amazon.com/images/I/41S6S93RfyL.jpg" alt="BB cream">
           </div>
           <div class="product-info">
-            <div class="stars">★★★★★</div>
-            <h4><b>BB cream</b></h4>
-            <p>Refreshing and moisturizing.</p>
-            <p class="price">$20</p>
-            <button class="add-to-cart">Add to Cart</button>
+              <div class="stars">★★★★★</div>
+              <h4><b>BB cream</b></h4>
+              <p>Refreshing and moisturizing.</p>
+              <p class="price">$20</p>
+              <form action="{{ url_for('cart') }}" method="post">
+                  <input type="hidden" name="product_name" value="BB cream">
+                  <input type="hidden" name="product_price" value="20">
+                  <button class="add-to-cart" type="submit">Add to Cart</button>
+              </form>
           </div>
-        </div>
       </div>
-    
-      
+      </div>
+
+
       <div class="container-fluid">
         <!-- Product 1 -->
         <div class="product-card">
           <div class="product-image">
-            <img src="https://viseartparis.com/cdn/shop/products/NEUTRALMATTESSLIMPRO.jpg?v=1672355587" alt="Eau Fraiche">
+              <img src="https://viseartparis.com/cdn/shop/products/NEUTRALMATTESSLIMPRO.jpg?v=1672355587" alt="Neutral eye shadow">
           </div>
           <div class="product-info">
-            <div class="stars">★★★★★</div>
-            <h4><b>Neutral eye shadow</b></h4>
-            <p>Long-lasting matte fragrance in various shades.</p>
-            <p class="price">$20</p>
-            <button class="add-to-cart">Add to Cart</button>
+              <div class="stars">★★★★★</div>
+              <h4><b>Neutral eye shadow</b></h4>
+              <p>Create stunning eye looks with our versatile Neutral Eye Shadow palette.</p>
+              <p class="price">$20</p>
+              <form action="{{ url_for('cart') }}" method="post">
+                  <input type="hidden" name="product_name" value="Neutral eye shadow">
+                  <input type="hidden" name="product_price" value="20">
+                  <button class="add-to-cart" type="submit">Add to Cart</button>
+              </form>
           </div>
-        </div>
+      </div>
+      
         <!-- Product 2 -->
         <div class="product-card">
           <div class="product-image">
-            <img src="https://m.media-amazon.com/images/I/81SVVj606mL._AC_UF894,1000_QL80_.jpg" alt="Eau de Toilette">
+              <img src="https://m.media-amazon.com/images/I/81SVVj606mL._AC_UF894,1000_QL80_.jpg" alt="Colourful eye shadow">
           </div>
           <div class="product-info">
-            <div class="stars">★★★★★</div>
-            <h4><b>Colourful eye shadow</b></h4>
-            <p>Enchanting blend of jasmine, rose, and vanilla.</p>
-            <p class="price">$30</p>
-            <button class="add-to-cart">Add to Cart</button>
+              <div class="stars">★★★★★</div>
+              <h4><b>Colourful eye shadow</b></h4>
+              <p>Experience the magic of our Colourful Eye Shadow palette and let your eyes shine.</p>
+              <p class="price">$30</p>
+              <form action="{{ url_for('cart') }}" method="post">
+                  <input type="hidden" name="product_name" value="Colourful eye shadow">
+                  <input type="hidden" name="product_price" value="30">
+                  <button class="add-to-cart" type="submit">Add to Cart</button>
+              </form>
           </div>
-        </div>
+      </div>
+      
+      
+      
         <!-- Product 3 -->
         <div class="product-card">
           <div class="product-image">
-            <img src="https://m.media-amazon.com/images/I/71oPe-wdrIL._AC_UF1000,1000_QL80_.jpg" alt="Eau de Cologne">
+              <img src="https://m.media-amazon.com/images/I/71oPe-wdrIL._AC_UF1000,1000_QL80_.jpg" alt="Eau de Cologne">
           </div>
           <div class="product-info">
-            <div class="stars">★★★★★</div>
-            <h4><b>Smoky eye shadow</b></h4>
-            <p>Deep conditioning for damaged hair.</p>
-            <p class="price">$34</p>
-            <button class="add-to-cart">Add to Cart</button>
+              <div class="stars">★★★★★</div>
+              <h4><b>Smoky eye shadow</b></h4>
+              <p>Achieve a smoky eye look.</p>
+              <p class="price">$34</p>
+              <form action="{{ url_for('cart') }}" method="post">
+                  <input type="hidden" name="product_name" value="Smoky eye shadow">
+                  <input type="hidden" name="product_price" value="34">
+                  <button class="add-to-cart" type="submit">Add to Cart</button>
+              </form>
           </div>
-        </div>
+      </div>
+      
         <!-- Product 4 -->
         <div class="product-card">
           <div class="product-image">
-            <img src="https://i5.walmartimages.com/asr/86864048-1e3b-42f0-b2c9-8dc7bc892484.291102b098041ef71ac1efede9cf307b.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF" alt="Woody">
+              <img src="https://i5.walmartimages.com/asr/86864048-1e3b-42f0-b2c9-8dc7bc892484.291102b098041ef71ac1efede9cf307b.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF" alt="Woody">
           </div>
           <div class="product-info">
-            <div class="stars">★★★★★</div>
-            <h4><b>Shimmer eye shadow</b></h4>
-            <p>Refreshing and moisturizing.</p>
-            <p class="price">$20</p>
-            <button class="add-to-cart">Add to Cart</button>
+              <div class="stars">★★★★★</div>
+              <h4><b>Shimmer eye shadow</b></h4>
+              <p>Let your eyes shimmer.</p>
+              <p class="price">$20</p>
+              <form action="{{ url_for('cart') }}" method="post">
+                  <input type="hidden" name="product_name" value="Shimmer eye shadow">
+                  <input type="hidden" name="product_price" value="20">
+                  <button class="add-to-cart" type="submit">Add to Cart</button>
+              </form>
           </div>
-        </div>
       </div>
-    
-    
+      
+      </div>
 
+      
+  
 
+<script>
+  // Get cart icon and dropdown elements
+const cartIcon = document.querySelector('.cart-icon');
+const cartDropdown = document.querySelector('.cart-dropdown');
+
+// Add event listener to cart icon
+cartIcon.addEventListener('click', () => {
+  // Toggle cart dropdown visibility
+  cartDropdown.classList.toggle('show');
+});
+
+// Add event listeners to quantity buttons
+document.querySelectorAll('.qty-minus,.qty-plus').forEach((button) => {
+  button.addEventListener('click', (e) => {
+    const input = e.target.parentNode.querySelector('input');
+    const currentValue = parseInt(input.value);
+    const newValue = e.target.classList.contains('qty-minus')? currentValue - 1 : currentValue + 1;
+    input.value = newValue;
+  });
+});
+
+// Add event listener to cart remove buttons
+document.querySelectorAll('.cart-remove').forEach((button) => {
+  button.addEventListener('click', (e) => {
+    const cartItem = e.target.parentNode;
+    cartItem.remove();
+    updateCartCount();
+  });
+});
+
+// Update cart count function
+function updateCartCount() {
+  const cartItems = document.querySelectorAll('.cart-item');
+  const cartCount = cartItems.length;
+  document.querySelector('.cart-count').textContent = cartCount;
+}
+
+// Initialize cart count
+updateCartCount();
+</script>
       <footer>
         <div class="footer-container">
           <div class="footer-links">
@@ -866,7 +1028,7 @@ a:hover {
           <div class="contact-info">
             <h3>Contact Information</h3>
             <p>Email: omarfarouqmadey@gmail.com</p>
-	    <p>Email: tasnasomo@gmail.com</p>
+            <p>Email: tasnasomo@gmail.com</p>
             <p>Phone: 0728473046 & 0720290800</p>
             <p class="loo"><b>Operating Hours:</b></p>
             <p>Mon-Fri: 9am-9pm EST</p>
@@ -875,7 +1037,7 @@ a:hover {
           <div class="reach-us">
             <h3><span>Social media</span></h3>
             <div class="social-icons">
-		<a href="https://www.facebook.com/Omar Farouq abdi"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.facebook.com/Omar Farouq abdi"><i class="fab fa-facebook-f"></i></a>
               <a href="https://www.twitter.com/Omar Farouq abdi"><i class="fab fa-twitter"></i></a>
               <a href="https://www.instagram.com/i.am_o.mar?igsh=MTh5b2JyczQ5dWNtOQ=="><i class="fab fa-instagram"></i></a>
               <a href="https://www.tiktok.com/magnificent"><i class="fab fa-tiktok"></i></a>
@@ -884,16 +1046,16 @@ a:hover {
         </div>
         <div class="decorative-line"></div>
         <div class="developers">
-		<p>Developed by Omar Farouq and Tasnim Mohamed</p>
+                <p>Developed by Omar Farouq and Tasnim Mohamed</p>
         </div>
         <div class="copyright">
           <p>&copy; 2024 Sereneglow. All rights reserved.</p>
         </div>
       </footer>
-      
 
+    </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
-
